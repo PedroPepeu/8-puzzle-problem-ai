@@ -69,4 +69,4 @@ class tree:
     def generate_sample():
         pass
 
-    
+
