@@ -2,15 +2,13 @@ class Node:
     def __init__(self, matrix) -> None:
         self.matrix = matrix
 
+        self.parent = None
+
         self.rightDownNode = None
-        self.rightNode = None
-        self.leftNode = None
-        self.leftNode = None
+        self.rightUpNode = None
+        self.leftLeftNode = None
+        self.leftRightNode = None
         
-
-    # def __init__(self, matrix, left, right) -> None:
-    #     pass
-
     def getValue(self):
         return self.matrix
     
@@ -40,3 +38,9 @@ class Node:
     
     def setLeftRightNode(self, node):
         self.leftNode = node
+
+    def getParent(self):
+        return self.parent
+    
+    def setParent(self, node):
+        self.parent = node

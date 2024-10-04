@@ -5,6 +5,77 @@ class BST:
 
         self.root = node.Node(first_sample)
 
+    def generate_samples(depth):
+        setRoot(getRoot(), depth, 0, 'none')
+
+    def __generate_samples(node, depth, curDepth, mov):
+        if depth == curDepth:
+            return node
+        
+        movements = {
+            'none': None,
+            'up': move_up,
+            'down': move_down,
+            'left': move_left,
+            'right': move_right
+        }
+
+        if node == None:
+            node.setValue(movements.get(mov, lambda s: s)(node.getValue()))            
+
+        node.setLeftLeftNode(__generate_samples(node.getLeftLeftNode(), depth, curDepth+1, 'left'))
+        node.setLeftRightNode(__generate_samples(node.getLeftRightNode(), depth, curDepth+1, 'right'))
+        node.setRightUpNode(__generate_samples(node.getRightUpNode(), depth, curDepth+1, 'up'))
+        node.setRightDownNode(__generate_samples(node.getRightDownNode(), depth, curDepth+1, 'down'))
+
+        return node
+    
+    def find_zero(sample):
+        for i in range(len(sample)):
+            for j in range(len(sample)):
+                if i == 0 and j == 0:
+                    return i, j
+
+    def move_up(sample):
+        x, y = find_zero(sample)
+        try:
+            temp = sample[x][y]
+            sample[x][y] = sample[x][y-1]
+            sample[x][y-1] = temp
+            return sample
+        except Exception as e:
+            return []
+
+    def move_down(sample):
+        x, y = find_zero(sample)
+        try:
+            temp = sample[x][y]
+            sample[x][y] = sample[x][y+1]
+            sample[x][y+1] = temp
+            return sample
+        except Exception as e:
+            return []
+
+    def move_left(sample):
+        x, y = find_zero(sample)
+        try:
+            temp = sample[x][y]
+            sample[x][y] = sample[x-1][y]
+            sample[x-1][y] = temp
+            return sample
+        except Exception as e:
+            return []
+
+    def move_right(sample):
+        x, y = find_zero(sample)
+        try:
+            temp = sample[x][y]
+            sample[x][y] = sample[x+1][y]
+            sample[x+1][y] = temp
+            return sample
+        except Exception as e:
+            return []
+
     def dfs(goal):
         setRoot(__dfs(getRoot(), goal))
 
@@ -62,27 +133,6 @@ class BST:
                 stack.append(rightDownSubTree)
 
         return False
-
-    def __generate_samples(node, depth, curDepth, mov):
-        if depth == curDepth:
-            return node
-        
-        movements = {
-            'up': move_up,
-            'down': move_down,
-            'left': move_left,
-            'right': move_right
-        }
-
-        if node == None:
-            node.setValue(movements.get(mov, lambda s: s)(node.getValue()))            
-
-        node.setLeftLeftNode(__generate_samples(node.getLeftLeftNode(), depth, curDepth+1, 'left'))
-        node.setLeftRightNode(__generate_samples(node.getLeftRightNode(), depth, curDepth+1, 'right'))
-        node.setRightUpNode(__generate_samples(node.getRightUpNode(), depth, curDepth+1, 'up'))
-        node.setRightDownNode(__generate_samples(node.getRightDownNode(), depth, curDepth+1, 'down'))
-
-        return node
 
     def getRoot(self):
         return self.root
