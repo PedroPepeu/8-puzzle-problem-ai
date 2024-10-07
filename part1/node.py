@@ -1,43 +1,41 @@
 class Node:
     def __init__(self, matrix) -> None:
-        self.matrix = matrix
-
+        self.value = matrix  # Let's standardize to 'value'
         self.parent = None
-
         self.rightDownNode = None
         self.rightUpNode = None
         self.leftLeftNode = None
         self.leftRightNode = None
         
     def getValue(self):
-        return self.matrix
+        return self.value  # Consistently use 'value' here
     
     def setValue(self, matrix):
-        self.matrix = matrix
+        self.value = matrix  # Use 'value' instead of 'matrix'
 
     def getRightDownNode(self):
-        return self.rightNode
+        return self.rightDownNode
     
     def setRightDownNode(self, node):
-        self.rightNode = node
+        self.rightDownNode = node
 
     def getRightUpNode(self):
-        return self.rightNode
+        return self.rightUpNode
     
     def setRightUpNode(self, node):
-        self.rightNode = node
+        self.rightUpNode = node
 
     def getLeftLeftNode(self):
-        return self.leftNode
+        return self.leftLeftNode
     
     def setLeftLeftNode(self, node):
-        self.leftNode = node
+        self.leftLeftNode = node
 
     def getLeftRightNode(self):
-        return self.leftNode
+        return self.leftRightNode
     
     def setLeftRightNode(self, node):
-        self.leftNode = node
+        self.leftRightNode = node
 
     def getParent(self):
         return self.parent
