@@ -30,12 +30,12 @@ class first_implementation:
                 return None
 
         if node.get_value() == self.goal_sample.get_value():
-            self.check += 1
+            self.check = 1
             self.end_time = time.time()
 
         print(node.get_value())
         if self.check == 1:
-            print(f"{self.check} solution(s) found in {self.end_time-self.start_time} seconds")
+            print(f"solution found in {self.end_time-self.start_time} seconds")
         
         if depth == cur_depth:
             return node
