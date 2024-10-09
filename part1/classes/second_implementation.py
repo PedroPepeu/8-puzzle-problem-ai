@@ -3,7 +3,7 @@ import sys
 from node import Node
 import time
 
-class first_implementation:
+class second_implementation:
     def __init__(self, root_value, goal_sample, depth):
         self.root = Node(value=root_value)
         self.goal_sample = Node(value=goal_sample)
@@ -23,19 +23,19 @@ class first_implementation:
         }
 
         if mov != 0:
-            node.set_value(movements.get(mov, lambda s: s)(copy.deepcopy(node.get_value())))
+            node.set_value(movements.get(mov, lambda s: s)(copy.deepcopy(node.get_parent().get_value())))
             if node.get_value() == []:
                 return None
             elif cur_depth >= 2 and node.get_parent().get_parent().get_value() == node.get_value():
                 return None
 
         if node.get_value() == self.goal_sample.get_value():
-            self.check = 1
+            self.check += 1
             self.end_time = time.time()
 
         print(node.get_value())
         if self.check == 1:
-            print(f"solution found in {self.end_time-self.start_time} seconds")
+            print(f"{self.check} solution(s) found in {self.end_time-self.start_time} seconds.")
         
         if depth == cur_depth:
             return node
@@ -43,7 +43,7 @@ class first_implementation:
         children = node.get_sons()
         for i in range(len(children)):
             if children[i] is None:
-                children[i] = Node(value=copy.deepcopy(node.get_value()), parent=node)
+                children[i] = Node(value=None, parent=node)
                 children[i] = self.generate_samples(children[i], depth, cur_depth+1, i+1)
             else:
                 children[i] = self.generate_samples(children[i], depth, cur_depth+1, 0)
@@ -105,7 +105,7 @@ goal = [
 ]
 depth=100
 
-t = first_implementation(root_value=root, goal_sample=goal, depth=depth)
+t = second_implementation(root_value=root, goal_sample=goal, depth=depth)
 root = Node(value=root)
 t.generate_samples(root, depth, 0, 0)
 

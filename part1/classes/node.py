@@ -1,6 +1,8 @@
+import copy
+
 class Node:
     def __init__(self, value, parent=None):
-        self._value = value
+        self._value = copy.deepcopy(value)
         self._parent = parent
         self._sons = [None] * 4
     
@@ -8,7 +10,7 @@ class Node:
         return self._value
 
     def set_value(self, value):
-        self._value = value
+        self._value = copy.deepcopy(value)
 
     def get_parent(self):
         return self._parent
